@@ -27,10 +27,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "spring.cloud.hazelcast")
 public class SpringCloudHazelcastProperties {
 
+	/**
+	 * Advertised Hazelcast host. Defaults to Hazelcast node's public address.
+	 */
 	private String host;
 
+	/**
+	 * Advertised Hazelcast port. Defaults to Hazelcast node's port.
+	 */
 	private Integer port;
 
+	/**
+	 * Consul service configuration.
+	 */
 	private ConsulProperties consul = new ConsulProperties();
 
 	public ConsulProperties getConsul() {
@@ -59,10 +68,19 @@ public class SpringCloudHazelcastProperties {
 
 	public static class ConsulProperties {
 
+		/**
+		 * Consul healthcheck configuration for Hazelcast service.
+		 */
 		private HealthCheckProperties healthcheck = new HealthCheckProperties();
 
+		/**
+		 * Hazelcast service name in Consul.
+		 */
 		private String serviceName;
 
+		/**
+		 * Hazelcast service tags in Consul.
+		 */
 		private List<String> tags = Collections.emptyList();
 
 		public List<String> getTags() {
@@ -91,10 +109,21 @@ public class SpringCloudHazelcastProperties {
 
 		public static class HealthCheckProperties {
 
-			private boolean enabled;
+			/**
+			 * If health check is enabled. Defaults to false.
+			 */
+			private boolean enabled = false;
 
+			/**
+			 * Address for health checks of Hazelcast service. Defaults to Hazelcast
+			 * node's public address.
+			 */
 			private String host;
 
+			/**
+			 * Port for health checks of Hazelcast service. Defaults to Hazelcast node's
+			 * port.
+			 */
 			private Integer port;
 
 			public boolean isEnabled() {

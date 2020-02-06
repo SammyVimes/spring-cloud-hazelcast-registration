@@ -1,0 +1,14 @@
+|===
+|Name | Default | Description
+
+|spring.cloud.hazelcast.host |  | Advertised Hazelcast host. Defaults to Hazelcast node's public address.
+|spring.cloud.hazelcast.port |  | Advertised Hazelcast port. Defaults to Hazelcast node's port.
+|spring.cloud.hazelcast.consul |  | Consul service configuration.
+|spring.cloud.hazelcast.consul.serviceName |  | Hazelcast service name in Consul.
+|spring.cloud.hazelcast.consul.tags |  | Hazelcast service tags in Consul.
+|spring.cloud.hazelcast.consul.healthcheck |  | Consul healthcheck configuration for Hazelcast service.
+|spring.cloud.hazelcast.consul.healthcheck.enabled | false  | If health check is enabled. Defaults to false.
+|spring.cloud.hazelcast.consul.healthcheck.host |  | Address for health checks of Hazelcast service. Defaults to Hazelcast node's public address.
+|spring.cloud.hazelcast.consul.healthcheck.port |  | Port for health checks of Hazelcast service. Defaults to Hazelcast node's port.
+
+|===

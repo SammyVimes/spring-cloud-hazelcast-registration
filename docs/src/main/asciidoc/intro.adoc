@@ -1,0 +1,4 @@
+This project provides Hazelcast discovery integrations for Spring Cloud apps through autoconfiguration
+and binding to the Spring Environment and other Spring programming model idioms. With a few
+simple properties you can quickly enable and configure automatic discovery of Hazelcast nodes.
+
