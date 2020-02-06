@@ -19,14 +19,17 @@
 
     <properties>
         <spring-cloud-commons.version>2.2.2.BUILD-SNAPSHOT</spring-cloud-commons.version>
+		<maven-checkstyle-plugin.failsOnError>true</maven-checkstyle-plugin.failsOnError>
+		<maven-checkstyle-plugin.failsOnViolation>true</maven-checkstyle-plugin.failsOnViolation>
+		<maven-checkstyle-plugin.includeTestSourceDirectory>true</maven-checkstyle-plugin.includeTestSourceDirectory>
     </properties>
 
     <scm>
-        <url>https://github.com/SammyVimes/spring-cloud-hazelcast-consul</url>
-        <connection>scm:git:git://github.com/SammyVimes/spring-cloud-hazelcast-consul.git
+        <url>https://github.com/SammyVimes/spring-cloud-hazelcast-registration</url>
+        <connection>scm:git:git://github.com/SammyVimes/spring-cloud-hazelcast-registration.git
         </connection>
         <developerConnection>
-            scm:git:ssh://git@github.com/SammyVimes/spring-cloud-hazelcast-consul.git
+            scm:git:ssh://git@github.com/SammyVimes/spring-cloud-hazelcast-registration.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
