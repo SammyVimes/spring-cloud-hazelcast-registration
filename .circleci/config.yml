@@ -3,9 +3,12 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
-executorType: machine
 jobs:
   build:
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+      - image: consul
+        command: [consul, agent, -server, -ui, -node=server-1, -bootstrap-expect=1, -client=0.0.0.0]
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
@@ -28,7 +31,5 @@ jobs:
             - .autoconf
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      - run: docker pull consul
-      - run: docker run -d -p 8500:8500 -p 8600:8600/udp --name=badger consul agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
       # run tests!
       - run: mvn test -B -P spring
