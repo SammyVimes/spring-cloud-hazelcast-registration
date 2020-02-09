@@ -8,7 +8,7 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
       - image: consul
-        command: [consul, agent, -server, -ui, -node=server-1, -bootstrap-expect=1, -client=0.0.0.0, --datad-dir=/consul/data]
+        command: [consul, agent, -server, -ui, -node=server-1, -bootstrap-expect=1, -client=0.0.0.0, --data-dir=/consul/data]
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
