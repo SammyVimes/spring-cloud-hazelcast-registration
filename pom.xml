@@ -8,6 +8,7 @@
     <artifactId>spring-cloud-hazelcast-registration</artifactId>
     <packaging>pom</packaging>
     <version>2.2.2.BUILD-SNAPSHOT</version>
+	<name>Root</name>
 
     <parent>
         <groupId>org.springframework.cloud</groupId>
@@ -37,7 +38,8 @@
     <modules>
         <module>spring-cloud-hazelcast-consul</module>
         <module>spring-cloud-hazelcast-dependencies</module>
-    </modules>
+		<module>docs</module>
+	</modules>
 
     <build>
         <plugins>
