@@ -13,6 +13,7 @@
 
     <groupId>com.github.sammyvimes</groupId>
     <artifactId>spring-cloud-hazelcast-dependencies</artifactId>
+	<version>2.2.2.BUILD-SNAPSHOT</version>
 	<name>Dependencies</name>
 
     <dependencyManagement>

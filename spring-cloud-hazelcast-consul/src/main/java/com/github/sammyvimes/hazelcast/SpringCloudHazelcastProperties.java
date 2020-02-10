@@ -115,12 +115,14 @@ public class SpringCloudHazelcastProperties {
 			private boolean enabled;
 
 			/**
-			 * Address for health checks of Hazelcast service. Default is Hazelcast node's public address.
+			 * Address for health checks of Hazelcast service. Default is Hazelcast node's
+			 * public address.
 			 */
 			private String host;
 
 			/**
-			 * Port for health checks of Hazelcast service. Default is Hazelcast node's port.
+			 * Port for health checks of Hazelcast service. Default is Hazelcast node's
+			 * port.
 			 */
 			private Integer port;
 
