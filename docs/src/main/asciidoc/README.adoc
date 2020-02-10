@@ -1,28 +1,25 @@
 image::https://circleci.com/gh/SammyVimes/spring-cloud-hazelcast-registration/tree/master.svg?style=svg["CircleCI", link="https://circleci.com/gh/SammyVimes/spring-cloud-hazelcast-registration/tree/master"]
-image::https://codecov.io/gh/spring-cloud/spring-cloud-consul/branch/master/graph/badge.svg["Codecov", link="https://codecov.io/gh/spring-cloud/spring-cloud-consul/branch/master"]
+image::https://codecov.io/gh/SammyVimes/spring-cloud-hazelcast-registration/branch/master/graph/badge.svg["Codecov", link="https://codecov.io/gh/SammyVimes/spring-cloud-hazelcast-registration/branch/master"]
 
 include::intro.adoc[]
 
-== Consul overview
+== Hazelcast overview
 
-Features of Consul
+Features of Hazelcast
 
-* Distributed configuration
-* Service registration and discovery
-* Distributed events
+* Key-value database
+* Distributed cache
+* In-memory computing
 * Distributed locking and sessions
-* Supports multiple data centers
-* Built in, user-friendly user interface
+* NoSQL data store
 
-See the https://consul.io/intro/index.html[intro] for more information.
+See the https://hazelcast.org/features/[official page] for more information.
 
-== Spring Cloud Consul Features
+== Spring Cloud Hazelcast Registration Features
 
-* Spring Cloud `DiscoveryClient` implementation
-** supports Ribbon and Zuul
-** supports Spring Cloud LoadBalancer
-* Consul based `PropertySource` loaded during the 'bootstrap' phase.
-* Spring Cloud Bus implementation based on Consul https://www.consul.io/docs/agent/http/event.html[events]
+* Hazelcast `DiscoveryStrategy` implementation
+** supports Consul
+* `PropertySource` for Consul registration loaded during the 'bootstrap' phase.
 
 == Running the sample
 

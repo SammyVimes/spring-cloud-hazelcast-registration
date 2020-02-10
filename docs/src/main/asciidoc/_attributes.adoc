@@ -12,5 +12,5 @@
 :docinfo: shared,private
 
 :sc-ext: java
-:project-full-name: Spring Cloud Consul
+:project-full-name: Spring Cloud Hazelcast Registration
 :all: {asterisk}{asterisk}
