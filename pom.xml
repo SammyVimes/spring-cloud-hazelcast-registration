@@ -137,9 +137,11 @@
                 <version>${spring-cloud-commons.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.sammyvimes</groupId>
-                <artifactId>spring-cloud-hazelcast-dependencies</artifactId>
+				<groupId>com.github.sammyvimes</groupId>
+				<artifactId>spring-cloud-hazelcast-dependencies</artifactId>
                 <version>${project.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

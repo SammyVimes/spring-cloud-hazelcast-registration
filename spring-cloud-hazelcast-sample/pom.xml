@@ -56,6 +56,10 @@
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.github.sammyvimes</groupId>
+			<artifactId>spring-cloud-hazelcast-consul</artifactId>
+		</dependency>
 	</dependencies>
 
 

@@ -28,6 +28,11 @@
                 <artifactId>spring-cloud-consul-discovery</artifactId>
                 <version>${project.version}</version>
             </dependency>
+			<dependency>
+				<groupId>com.github.sammyvimes</groupId>
+				<artifactId>spring-cloud-hazelcast-consul</artifactId>
+				<version>${project.version}</version>
+			</dependency>
         </dependencies>
     </dependencyManagement>
     <profiles>
