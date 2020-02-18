@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.sammyvimes</groupId>
-	<artifactId>spring-cloud-hazelcast-sample</artifactId>
+	<artifactId>spring-cloud-hazelcast-registration-sample</artifactId>
 	<packaging>jar</packaging>
 	<name>Spring Cloud Hazelcast Registration Sample</name>
 	<description>Spring Cloud Registration Registration Sample</description>
