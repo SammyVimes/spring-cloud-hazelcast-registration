@@ -52,7 +52,6 @@ public class Application2 {
 		SpringApplication.run(Application2.class, args);
 	}
 
-
 	@Autowired
 	@Lazy
 	private HazelcastInstance instance;
@@ -60,11 +59,14 @@ public class Application2 {
 	@GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getValue() {
 		final IMap<String, String> map = instance.getMap("some-map");
-		return map.entrySet().stream().map(entry -> entry.getKey() + ":" + entry.getValue()).collect(Collectors.joining("\n"));
+		return map.entrySet().stream()
+				.map(entry -> entry.getKey() + ":" + entry.getValue())
+				.collect(Collectors.joining("\n"));
 	}
 
 	@Bean
-	public HazelcastInstance instance(final ConsulHazelcastDiscoveryStrategyFactory factory) {
+	public HazelcastInstance instance(
+			final ConsulHazelcastDiscoveryStrategyFactory factory) {
 		Config config = new Config();
 
 		config.setProperty(DISCOVERY_SPI_ENABLED.getName(), "true");
@@ -78,9 +80,9 @@ public class Application2 {
 		final DiscoveryConfig discoveryConfig = join.getDiscoveryConfig();
 
 		final DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(
-			factory, new HashMap<>());
+				factory, new HashMap<>());
 		discoveryConfig.setDiscoveryStrategyConfigs(
-			Collections.singletonList(discoveryStrategyConfig));
+				Collections.singletonList(discoveryStrategyConfig));
 
 		return Hazelcast.newHazelcastInstance(config);
 	}

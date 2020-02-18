@@ -56,14 +56,16 @@ public class Application1 {
 	private HazelcastInstance instance;
 
 	@GetMapping("/set")
-	public String setValue(@RequestParam("key") final String key, @RequestParam("value") final String value) {
+	public String setValue(@RequestParam("key") final String key,
+			@RequestParam("value") final String value) {
 		final IMap<String, String> map = instance.getMap("some-map");
 		map.set(key, value);
 		return "OK";
 	}
 
 	@Bean
-	public HazelcastInstance instance(final ConsulHazelcastDiscoveryStrategyFactory factory) {
+	public HazelcastInstance instance(
+			final ConsulHazelcastDiscoveryStrategyFactory factory) {
 		Config config = new Config();
 
 		config.setProperty(DISCOVERY_SPI_ENABLED.getName(), "true");
@@ -77,9 +79,9 @@ public class Application1 {
 		final DiscoveryConfig discoveryConfig = join.getDiscoveryConfig();
 
 		final DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(
-			factory, new HashMap<>());
+				factory, new HashMap<>());
 		discoveryConfig.setDiscoveryStrategyConfigs(
-			Collections.singletonList(discoveryStrategyConfig));
+				Collections.singletonList(discoveryStrategyConfig));
 
 		return Hazelcast.newHazelcastInstance(config);
 	}
