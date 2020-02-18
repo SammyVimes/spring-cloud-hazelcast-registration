@@ -36,9 +36,9 @@
     </scm>
 
     <modules>
-        <module>spring-cloud-hazelcast-consul</module>
-        <module>spring-cloud-hazelcast-dependencies</module>
-		<module>spring-cloud-hazelcast-sample</module>
+        <module>spring-cloud-hazelcast-registration-consul</module>
+        <module>spring-cloud-hazelcast-registration-dependencies</module>
+		<module>spring-cloud-hazelcast-registration-sample</module>
 		<module>docs</module>
 	</modules>
 
@@ -138,7 +138,7 @@
             </dependency>
             <dependency>
 				<groupId>com.github.sammyvimes</groupId>
-				<artifactId>spring-cloud-hazelcast-dependencies</artifactId>
+				<artifactId>spring-cloud-hazelcast-registration-dependencies</artifactId>
                 <version>${project.version}</version>
 				<scope>import</scope>
 				<type>pom</type>

@@ -62,7 +62,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.sammyvimes</groupId>
-			<artifactId>spring-cloud-hazelcast-consul</artifactId>
+			<artifactId>spring-cloud-hazelcast-registration-consul</artifactId>
 		</dependency>
 	</dependencies>
 
