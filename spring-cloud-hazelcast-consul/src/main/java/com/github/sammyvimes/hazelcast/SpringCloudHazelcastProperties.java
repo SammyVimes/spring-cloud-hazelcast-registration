@@ -28,12 +28,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SpringCloudHazelcastProperties {
 
 	/**
-	 * Advertised Hazelcast host. Default is Hazelcast node's public address.
+	 * Advertised Hazelcast host. Defaults to Hazelcast node's public address.
 	 */
 	private String host;
 
 	/**
-	 * Advertised Hazelcast port. Default is Hazelcast node's port.
+	 * Advertised Hazelcast port. Defaults to Hazelcast node's port.
 	 */
 	private Integer port;
 
@@ -110,18 +110,18 @@ public class SpringCloudHazelcastProperties {
 		public static class HealthCheckProperties {
 
 			/**
-			 * Is health check enabled?
+			 * If health check is enabled. Defaults to false.
 			 */
-			private boolean enabled;
+			private boolean enabled = false;
 
 			/**
-			 * Address for health checks of Hazelcast service. Default is Hazelcast node's
-			 * public address.
+			 * Address for health checks of Hazelcast service. Defaults to Hazelcast
+			 * node's public address.
 			 */
 			private String host;
 
 			/**
-			 * Port for health checks of Hazelcast service. Default is Hazelcast node's
+			 * Port for health checks of Hazelcast service. Defaults to Hazelcast node's
 			 * port.
 			 */
 			private Integer port;

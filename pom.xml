@@ -38,6 +38,7 @@
     <modules>
         <module>spring-cloud-hazelcast-consul</module>
         <module>spring-cloud-hazelcast-dependencies</module>
+		<module>spring-cloud-hazelcast-sample</module>
 		<module>docs</module>
 	</modules>
 
