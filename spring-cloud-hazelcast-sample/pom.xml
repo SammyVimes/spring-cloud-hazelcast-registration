@@ -16,6 +16,10 @@
 	<name>Spring Cloud Hazelcast Registration Sample</name>
 	<description>Spring Cloud Registration Registration Sample</description>
 
+	<properties>
+		<start-class>com.github.sammyvimes.app1.Application1</start-class>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
