@@ -16,6 +16,15 @@
         <!-- lookup parent from repository -->
     </parent>
 
+	<organization/>
+
+	<developers>
+		<developer>
+			<name>Semyon Danilov</name>
+			<email>samvimes@yandex.ru</email>
+		</developer>
+	</developers>
+
     <properties>
         <spring-cloud-commons.version>2.2.1.RELEASE</spring-cloud-commons.version>
         <spring-cloud-consul.version>2.2.1.RELEASE</spring-cloud-consul.version>
@@ -43,6 +52,33 @@
 
     <build>
         <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
