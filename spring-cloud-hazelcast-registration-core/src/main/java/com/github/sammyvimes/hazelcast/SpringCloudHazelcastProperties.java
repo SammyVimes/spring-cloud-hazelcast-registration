@@ -42,8 +42,17 @@ public class SpringCloudHazelcastProperties {
 	 */
 	private ConsulProperties consul = new ConsulProperties();
 
+	/**
+	 * Zookeeper service configuration.
+	 */
+	private ZookeeperProperties zookeeper = new ZookeeperProperties();
+
 	public ConsulProperties getConsul() {
 		return consul;
+	}
+
+	public ZookeeperProperties getZookeeper() {
+		return zookeeper;
 	}
 
 	public void setConsul(final ConsulProperties consul) {
@@ -150,6 +159,23 @@ public class SpringCloudHazelcastProperties {
 				this.port = port;
 			}
 
+		}
+
+	}
+
+	public static class ZookeeperProperties {
+
+		/**
+		 * Hazelcast service name in Consul.
+		 */
+		private String serviceName;
+
+		String getServiceName() {
+			return serviceName;
+		}
+
+		void setServiceName(String serviceName) {
+			this.serviceName = serviceName;
 		}
 
 	}
