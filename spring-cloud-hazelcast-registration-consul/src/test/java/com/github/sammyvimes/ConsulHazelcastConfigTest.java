@@ -33,14 +33,20 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.hazelcast.nio.Address;
 import org.junit.Assert;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.testcontainers.containers.GenericContainer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -51,9 +57,16 @@ import static com.hazelcast.spi.properties.GroupProperty.HTTP_HEALTHCHECK_ENABLE
  * @author Semyon Danilov
  */
 @RunWith(SpringRunner.class)
+@ContextConfiguration(initializers = ConsulHazelcastConfigTest.CustomInitializer.class)
 @SpringBootTest(classes = ConsulHazelcastConfigTest.ApplicationTestConfig.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class ConsulHazelcastConfigTest {
+
+	public static final int CONSUL_PORT = 8500;
+
+	@ClassRule
+	public static GenericContainer zookeeper = new GenericContainer<>("consul")
+		.withExposedPorts(CONSUL_PORT);
 
 	@Autowired
 	private List<HazelcastInstanceMgr> hazelcastInstances;
@@ -149,6 +162,18 @@ public class ConsulHazelcastConfigTest {
 
 		public Address getAddress() {
 			return this.hazelcastInstance.getCluster().getLocalMember().getAddress();
+		}
+
+	}
+
+	static class CustomInitializer
+		implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+		@Override
+		public void initialize(
+			ConfigurableApplicationContext configurableApplicationContext) {
+			TestPropertyValues.of("spring.cloud.consul.port=" + zookeeper.getMappedPort(CONSUL_PORT))
+				.applyTo(configurableApplicationContext.getEnvironment());
 		}
 
 	}
