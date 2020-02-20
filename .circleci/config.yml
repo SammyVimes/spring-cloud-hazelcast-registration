@@ -14,7 +14,6 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo rm -rf /usr/bin/mvn && sudo apt update && sudo apt install maven
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -22,7 +21,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P spring
+      - run: ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P spring
 
       - save_cache:
           paths:
@@ -31,5 +30,5 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests!
-      - run: mvn clean install -B -P spring
+      - run: ./mvnw clean install -B -P spring
       - run: bash <(curl -s https://codecov.io/bash)
