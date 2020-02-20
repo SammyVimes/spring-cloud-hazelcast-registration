@@ -14,7 +14,7 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo apt remove maven && sudo apt update && sudo apt install maven
+      - run: sudo rm -rf /usr/bin/mvn && sudo apt update && sudo apt install maven
       # Download and cache dependencies
       - restore_cache:
           keys:
