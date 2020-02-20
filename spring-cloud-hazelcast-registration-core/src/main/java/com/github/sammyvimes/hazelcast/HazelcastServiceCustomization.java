@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.github.sammyvimes;
+package com.github.sammyvimes.hazelcast;
 
-import com.ecwid.consul.v1.agent.model.NewService;
 import com.hazelcast.spi.discovery.DiscoveryNode;
+
+import org.springframework.cloud.client.serviceregistry.Registration;
 
 /**
  * @author Semyon Danilov
  */
 @FunctionalInterface
-public interface HazelcastNewServiceCustomization {
+public interface HazelcastServiceCustomization<T extends Registration> {
 
-	void customize(NewService service, DiscoveryNode discoveryNode);
+	void customize(T service, DiscoveryNode discoveryNode);
 
 }

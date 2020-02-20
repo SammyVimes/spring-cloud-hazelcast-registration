@@ -16,6 +16,7 @@
 
 package com.github.sammyvimes.hazelcast;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -27,6 +28,7 @@ import org.apache.curator.x.discovery.ServiceType;
 
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.serviceregistry.ServiceRegistry;
+import org.springframework.cloud.zookeeper.discovery.ZookeeperDiscoveryProperties;
 import org.springframework.cloud.zookeeper.serviceregistry.ServiceInstanceRegistration;
 import org.springframework.cloud.zookeeper.serviceregistry.ZookeeperRegistration;
 
@@ -35,14 +37,21 @@ import org.springframework.cloud.zookeeper.serviceregistry.ZookeeperRegistration
  */
 public class ZookeeperHazelcastDiscoveryStrategy extends BaseDiscoveryStrategy<ZookeeperRegistration> {
 
+	private final List<HazelcastServiceCustomization<ZookeeperRegistration>> customizers;
 
-	public ZookeeperHazelcastDiscoveryStrategy(final ILogger logger,
+	private final ZookeeperDiscoveryProperties zookeeperDiscoveryProperties;
+
+	public ZookeeperHazelcastDiscoveryStrategy(final DiscoveryNode discoveryNode,
+		final ILogger logger,
 		final Map<String, Comparable> properties,
 		final ServiceRegistry<ZookeeperRegistration> registry,
+		final SpringCloudHazelcastProperties hazelcastProperties,
+		final ZookeeperDiscoveryProperties zookeeperDiscoveryProperties,
 		final DiscoveryClient discoveryClient,
-		final DiscoveryNode discoveryNode,
-		final SpringCloudHazelcastProperties hazelcastProperties) {
+		final List<HazelcastServiceCustomization<ZookeeperRegistration>> customizers) {
 		super(logger, properties, registry, discoveryClient, discoveryNode, hazelcastProperties);
+		this.customizers = customizers;
+		this.zookeeperDiscoveryProperties = zookeeperDiscoveryProperties;
 	}
 
 	@Override
@@ -77,12 +86,16 @@ public class ZookeeperHazelcastDiscoveryStrategy extends BaseDiscoveryStrategy<Z
 			host = propertiesHost;
 		}
 
-		return ServiceInstanceRegistration.builder()
+		final ServiceInstanceRegistration registration = ServiceInstanceRegistration.builder()
 			.id(String.format("%s(%s:%d)", serviceName, host, port))
 			.name(serviceName)
 			.address(host)
 			.port(port)
 			.serviceType(ServiceType.DYNAMIC).build();
+
+		customizers.forEach(customizer -> customizer.customize(registration, discoveryNode));
+
+		return registration;
 	}
 
 }

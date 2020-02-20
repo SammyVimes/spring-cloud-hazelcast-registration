@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.ecwid.consul.v1.agent.model.NewService;
-import com.github.sammyvimes.HazelcastNewServiceCustomization;
 import com.hazelcast.logging.ILogger;
 import com.hazelcast.nio.Address;
 import com.hazelcast.spi.discovery.DiscoveryNode;
@@ -38,7 +37,7 @@ import org.springframework.lang.NonNull;
  */
 public class ConsulHazelcastDiscoveryStrategy extends BaseDiscoveryStrategy<ConsulRegistration> {
 
-	private final List<HazelcastNewServiceCustomization> customizers;
+	private final List<HazelcastServiceCustomization<ConsulRegistration>> customizers;
 
 	private final ConsulDiscoveryProperties consulDiscoveryProperties;
 
@@ -48,7 +47,7 @@ public class ConsulHazelcastDiscoveryStrategy extends BaseDiscoveryStrategy<Cons
 											final SpringCloudHazelcastProperties hazelcastProperties,
 											final ConsulDiscoveryProperties consulDiscoveryProperties,
 											final ConsulDiscoveryClient client,
-											final List<HazelcastNewServiceCustomization> customizers) {
+											final List<HazelcastServiceCustomization<ConsulRegistration>> customizers) {
 		super(logger, properties, registry, client, discoveryNode, hazelcastProperties);
 		this.consulDiscoveryProperties = consulDiscoveryProperties;
 		this.customizers = customizers;
@@ -93,9 +92,11 @@ public class ConsulHazelcastDiscoveryStrategy extends BaseDiscoveryStrategy<Cons
 		hz.setName(serviceName);
 		hz.setId(String.format("%s(%s:%d)", serviceName, host, port));
 
-		customizers.forEach(customizer -> customizer.customize(hz, discoveryNode));
+		final ConsulRegistration consulRegistration = new ConsulRegistration(hz, consulDiscoveryProperties);
 
-		return new ConsulRegistration(hz, consulDiscoveryProperties);
+		customizers.forEach(customizer -> customizer.customize(consulRegistration, discoveryNode));
+
+		return consulRegistration;
 	}
 
 }

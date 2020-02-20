@@ -147,12 +147,12 @@ public abstract class BaseDiscoveryStrategy<T extends Registration> extends Abst
 	private void shutdownHook() {
 
 		try {
-			getLogger().info("Deregistering myself from Consul: "
+			getLogger().info("Deregister from service registry: "
 				+ this.hazelcastRegistration.getServiceId());
 			this.registry.deregister(this.hazelcastRegistration);
 		}
 		catch (Throwable e) {
-			this.getLogger().severe("Unexpected error in ConsulRegistrator.deregister(): "
+			this.getLogger().severe("Unexpected error during service deregister: "
 				+ e.getMessage(), e);
 		}
 	}
