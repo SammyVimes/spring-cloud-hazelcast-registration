@@ -5,7 +5,7 @@
     <groupId>com.github.sammyvimes</groupId>
     <artifactId>spring-cloud-hazelcast-registration</artifactId>
     <packaging>pom</packaging>
-    <version>2.2.3.BUILD-SNAPSHOT</version>
+    <version>2.2.3.RELEASE</version>
 	<name>Root</name>
 
     <parent>
@@ -16,7 +16,7 @@
         <!-- lookup parent from repository -->
     </parent>
 
-	<organization/>
+	<organization />
 
 	<developers>
 		<developer>
@@ -38,7 +38,7 @@
         <developerConnection>
             scm:git:ssh://git@github.com/SammyVimes/spring-cloud-hazelcast-registration.git
         </developerConnection>
-        <tag>spring-cloud-hazelcast-registration-2.2.3.BUILD-SNAPSHOT</tag>
+        <tag>spring-cloud-hazelcast-registration-2.2.3.RELEASE</tag>
     </scm>
 
     <modules>
