@@ -26,8 +26,6 @@
 	</developers>
 
     <properties>
-        <spring-cloud-commons.version>2.2.1.RELEASE</spring-cloud-commons.version>
-        <spring-cloud-consul.version>2.2.1.RELEASE</spring-cloud-consul.version>
 		<maven-checkstyle-plugin.failsOnError>true</maven-checkstyle-plugin.failsOnError>
 		<maven-checkstyle-plugin.failsOnViolation>true</maven-checkstyle-plugin.failsOnViolation>
 		<maven-checkstyle-plugin.includeTestSourceDirectory>true</maven-checkstyle-plugin.includeTestSourceDirectory>
@@ -48,6 +46,8 @@
         <module>spring-cloud-hazelcast-registration-dependencies</module>
 		<module>spring-cloud-hazelcast-registration-sample</module>
 		<module>docs</module>
+		<module>spring-cloud-hazelcast-registration-zookeeper</module>
+		<module>spring-cloud-hazelcast-registration-core</module>
 	</modules>
 
     <build>
@@ -137,33 +137,13 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-consul-dependencies</artifactId>
-                <version>${spring-cloud-consul.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-commons-dependencies</artifactId>
-                <version>${spring-cloud-commons.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-test-support</artifactId>
-                <scope>test</scope>
-                <version>${spring-cloud-commons.version}</version>
-            </dependency>
-            <dependency>
+			<dependency>
 				<groupId>com.github.sammyvimes</groupId>
 				<artifactId>spring-cloud-hazelcast-registration-dependencies</artifactId>
-                <version>${project.version}</version>
+				<version>${project.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
-            </dependency>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -5,10 +5,8 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: circleci/openjdk:8-jdk-stretch
-      - image: consul
-        command: [consul, agent, -server, -ui, -node=server-1, -bootstrap-expect=1, -client=0.0.0.0, --data-dir=/consul/data]
+    machine:
+      image: ubuntu-1604:201903-01
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
@@ -23,7 +21,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P spring
+      - run: ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P spring
 
       - save_cache:
           paths:
@@ -32,5 +30,5 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests!
-      - run: mvn clean install -B -P spring
+      - run: ./mvnw clean install -B -P spring
       - run: bash <(curl -s https://codecov.io/bash)

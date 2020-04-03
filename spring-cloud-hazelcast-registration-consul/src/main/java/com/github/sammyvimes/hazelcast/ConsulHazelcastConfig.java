@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-package com.github.sammyvimes;
+package com.github.sammyvimes.hazelcast;
 
 import java.util.List;
 
-import com.github.sammyvimes.hazelcast.ConsulHazelcastDiscoveryStrategyFactory;
-import com.github.sammyvimes.hazelcast.SpringCloudHazelcastProperties;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.cloud.consul.discovery.ConsulDiscoveryClient;
 import org.springframework.cloud.consul.discovery.ConsulDiscoveryProperties;
-import org.springframework.cloud.consul.serviceregistry.ConsulAutoRegistration;
+import org.springframework.cloud.consul.serviceregistry.ConsulRegistration;
 import org.springframework.cloud.consul.serviceregistry.ConsulServiceRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 /**
  * @author Semyon Danilov
@@ -40,20 +35,14 @@ import org.springframework.context.annotation.Primary;
 public class ConsulHazelcastConfig {
 
 	@Bean
-	@Primary
-	public Registration consulAppRegistration(final ConsulAutoRegistration car) {
-		return car;
-	}
-
-	@Bean
 	@Autowired
 	public ConsulHazelcastDiscoveryStrategyFactory consul(
-			final ConsulServiceRegistry registry, final ConsulDiscoveryClient client,
-			final SpringCloudHazelcastProperties hazelcastProperties,
-			final ConsulDiscoveryProperties consulDiscoveryProperties,
-			final List<HazelcastNewServiceCustomization> customizers) {
+		final ConsulServiceRegistry registry, final ConsulDiscoveryClient client,
+		final SpringCloudHazelcastProperties hazelcastProperties,
+		final ConsulDiscoveryProperties discoveryProperties,
+		final List<HazelcastServiceCustomization<ConsulRegistration>> customizers) {
 		return new ConsulHazelcastDiscoveryStrategyFactory(registry,
-				consulDiscoveryProperties, hazelcastProperties, client, customizers);
+			discoveryProperties, hazelcastProperties, client, customizers);
 	}
 
 }

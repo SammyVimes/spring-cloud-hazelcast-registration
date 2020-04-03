@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.github.sammyvimes.hazelcast.ConsulHazelcastDiscoveryStrategyFactory;
+import com.github.sammyvimes.hazelcast.ZookeeperHazelcastDiscoveryStrategyFactory;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.DiscoveryConfig;
 import com.hazelcast.config.DiscoveryStrategyConfig;
@@ -57,16 +57,16 @@ import static com.hazelcast.spi.properties.GroupProperty.HTTP_HEALTHCHECK_ENABLE
  * @author Semyon Danilov
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(initializers = ConsulHazelcastConfigTest.CustomInitializer.class)
-@SpringBootTest(classes = ConsulHazelcastConfigTest.ApplicationTestConfig.class)
+@ContextConfiguration(initializers = ZookeeperHazelcastConfigTest.CustomInitializer.class)
+@SpringBootTest(classes = ZookeeperHazelcastConfigTest.ApplicationTestConfig.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class ConsulHazelcastConfigTest {
+public class ZookeeperHazelcastConfigTest {
 
-	public static final int CONSUL_PORT = 8500;
+	public static final int ZOOKEEPER_PORT = 2181;
 
 	@ClassRule
-	public static GenericContainer zookeeper = new GenericContainer<>("consul")
-		.withExposedPorts(CONSUL_PORT);
+	public static GenericContainer zookeeper = new GenericContainer<>("zookeeper")
+		.withExposedPorts(ZOOKEEPER_PORT);
 
 	@Autowired
 	private List<HazelcastInstanceMgr> hazelcastInstances;
@@ -80,13 +80,13 @@ public class ConsulHazelcastConfigTest {
 		final String mapName = "some-map";
 		final HazelcastInstanceMgr hazelcastInstanceMgr = hazelcastInstances.get(0);
 		final IMap<String, String> someMap = hazelcastInstanceMgr.getInstance()
-				.getMap(mapName);
+			.getMap(mapName);
 
 		vals.entrySet().forEach(e -> someMap.put(e.getKey(), e.getValue()));
 
 		for (HazelcastInstanceMgr hazelcastInstance : hazelcastInstances) {
 			final IMap<String, String> mapOfInstance = hazelcastInstance.getInstance()
-					.getMap(mapName);
+				.getMap(mapName);
 
 			Assert.assertEquals(vals.size(), mapOfInstance.size());
 
@@ -104,7 +104,7 @@ public class ConsulHazelcastConfigTest {
 
 		@Bean
 		public List<HazelcastInstanceMgr> newInstance(
-				final ConsulHazelcastDiscoveryStrategyFactory factory) {
+			final ZookeeperHazelcastDiscoveryStrategyFactory factory) {
 			int totalInstancesToTest = 5;
 
 			List<HazelcastInstanceMgr> instances = new ArrayList<>();
@@ -124,9 +124,9 @@ public class ConsulHazelcastConfigTest {
 				final DiscoveryConfig discoveryConfig = join.getDiscoveryConfig();
 
 				final DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(
-						factory, new HashMap<>());
+					factory, new HashMap<>());
 				discoveryConfig.setDiscoveryStrategyConfigs(
-						Collections.singletonList(discoveryStrategyConfig));
+					Collections.singletonList(discoveryStrategyConfig));
 
 				final HazelcastInstanceMgr instance = new HazelcastInstanceMgr(config);
 				instance.start();
@@ -172,7 +172,8 @@ public class ConsulHazelcastConfigTest {
 		@Override
 		public void initialize(
 			ConfigurableApplicationContext configurableApplicationContext) {
-			TestPropertyValues.of("spring.cloud.consul.port=" + zookeeper.getMappedPort(CONSUL_PORT))
+			TestPropertyValues
+				.of("spring.cloud.zookeeper.connect-string=localhost:" + zookeeper.getMappedPort(ZOOKEEPER_PORT))
 				.applyTo(configurableApplicationContext.getEnvironment());
 		}
 

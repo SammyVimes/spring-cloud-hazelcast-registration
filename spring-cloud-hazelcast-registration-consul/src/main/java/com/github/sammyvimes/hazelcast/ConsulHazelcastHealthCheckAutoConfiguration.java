@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.ecwid.consul.v1.agent.model.NewService;
-import com.github.sammyvimes.HazelcastNewServiceCustomization;
 import com.github.sammyvimes.hazelcast.SpringCloudHazelcastProperties.ConsulProperties.HealthCheckProperties;
 import com.hazelcast.nio.Address;
 import com.hazelcast.spi.discovery.DiscoveryNode;
 import com.hazelcast.util.StringUtil;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.consul.serviceregistry.ConsulRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Assert;
@@ -42,9 +42,10 @@ import org.springframework.util.StringUtils;
 public class ConsulHazelcastHealthCheckAutoConfiguration {
 
 	@Bean
-	public HazelcastNewServiceCustomization consulHazelcastHealthCheckCustomizer(
+	public HazelcastServiceCustomization<ConsulRegistration> consulHazelcastHealthCheckCustomizer(
 			final SpringCloudHazelcastProperties properties) {
-		return (newService, discoveryNode) -> {
+		return (service, discoveryNode) -> {
+			final NewService newService = service.getService();
 			List<NewService.Check> checks = newService.getChecks() != null
 					? new ArrayList<>(newService.getChecks()) : new ArrayList<>();
 
