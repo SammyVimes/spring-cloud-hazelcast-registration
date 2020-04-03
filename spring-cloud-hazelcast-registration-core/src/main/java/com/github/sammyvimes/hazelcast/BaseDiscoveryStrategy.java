@@ -75,24 +75,6 @@ public abstract class BaseDiscoveryStrategy<T extends Registration> extends Abst
 		List<DiscoveryNode> toReturn = new ArrayList<>();
 
 		try {
-			// // discover healthy nodes only? (and its NOT the first invocation...)
-			// if (this.consulHealthyOnly && discoverNodesInvoked) {
-			//
-			// List<ServiceHealth> nodes =
-			// consulHealthClient.getHealthyServiceInstances(consulServiceName,
-			// ConsulUtility.getAclToken(this.consulAclToken)).getResponse();
-			//
-			// for (ServiceHealth node : nodes) {
-			// toReturn.add(new SimpleDiscoveryNode(
-			// new Address(node.getService().getAddress(),node.getService().getPort())));
-			// getLogger().info("Discovered healthy node: " +
-			// node.getService().getAddress()+":"+node.getService().getPort());
-			// }
-			//
-			// // discover all services, regardless of health or this is the first
-			// invocation
-			// } else {
-
 			final String serviceName = hazelcastRegistration.getServiceId();
 			List<ServiceInstance> response = this.discoveryClient.getInstances(serviceName);
 
