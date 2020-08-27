@@ -19,6 +19,7 @@ package com.github.sammyvimes.hazelcast;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.consul.discovery.ConsulDiscoveryClient;
 import org.springframework.cloud.consul.discovery.ConsulDiscoveryProperties;
@@ -31,6 +32,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Semyon Danilov
  */
 @Configuration
+@ConditionalOnProperty(prefix = "spring.cloud.hazelcast.consul.config", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(SpringCloudHazelcastProperties.class)
 public class ConsulHazelcastConfig {
 
