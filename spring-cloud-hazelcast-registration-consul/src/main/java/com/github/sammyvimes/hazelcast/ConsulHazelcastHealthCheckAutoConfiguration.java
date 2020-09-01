@@ -38,7 +38,7 @@ import org.springframework.util.StringUtils;
  * @author Semyon Danilov
  */
 @Configuration
-@ConditionalOnProperty("spring.cloud.hazelcast.consul.healthcheck.enabled")
+@ConditionalOnProperty(prefix = "spring.cloud.hazelcast.consul.healthcheck", name = "enabled", havingValue = "true")
 public class ConsulHazelcastHealthCheckAutoConfiguration {
 
 	@Bean
