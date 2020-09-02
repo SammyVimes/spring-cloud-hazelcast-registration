@@ -135,6 +135,26 @@ public class SpringCloudHazelcastProperties {
 			 */
 			private Integer port;
 
+			/**
+			 * Automatic deregistration flag.
+			 */
+			private boolean deregisterEnabled = true;
+
+			/**
+			 * Automatic deregistration timeout.
+			 */
+			private String deregisterTimeout = "2m";
+
+			/**
+			 * Health check interval.
+			 */
+			private String interval = "10s";
+
+			/**
+			 * Health check timeout.
+			 */
+			private String timeout = "30s";
+
 			public boolean isEnabled() {
 				return enabled;
 			}
@@ -159,6 +179,37 @@ public class SpringCloudHazelcastProperties {
 				this.port = port;
 			}
 
+			public boolean isDeregisterEnabled() {
+				return deregisterEnabled;
+			}
+
+			public void setDeregisterEnabled(final boolean deregisterEnabled) {
+				this.deregisterEnabled = deregisterEnabled;
+			}
+
+			public String getDeregisterTimeout() {
+				return deregisterTimeout;
+			}
+
+			public void setDeregisterTimeout(final String deregisterTimeout) {
+				this.deregisterTimeout = deregisterTimeout;
+			}
+
+			public String getInterval() {
+				return interval;
+			}
+
+			public void setInterval(final String interval) {
+				this.interval = interval;
+			}
+
+			public String getTimeout() {
+				return timeout;
+			}
+
+			public void setTimeout(final String timeout) {
+				this.timeout = timeout;
+			}
 		}
 
 	}

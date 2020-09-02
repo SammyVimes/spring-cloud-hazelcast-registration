@@ -32,7 +32,6 @@ import org.springframework.cloud.consul.serviceregistry.ConsulRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 /**
  * @author Semyon Danilov
@@ -56,31 +55,30 @@ public class ConsulHazelcastHealthCheckAutoConfiguration {
 
 	private NewService.Check healthCheck(final DiscoveryNode discoveryNode,
 			final SpringCloudHazelcastProperties properties) {
-		final HealthCheckProperties healthCheck = properties.getConsul().getHealthcheck();
+		final HealthCheckProperties healthCheckProperties = properties.getConsul().getHealthcheck();
 
 		final String host;
 		final int port;
 
 		final Address publicAddress = discoveryNode.getPublicAddress();
 
-		if (StringUtil.isNullOrEmpty(healthCheck.getHost())) {
+		if (StringUtil.isNullOrEmpty(healthCheckProperties.getHost())) {
 			host = publicAddress.getHost();
 		}
 		else {
-			host = healthCheck.getHost();
+			host = healthCheckProperties.getHost();
 		}
 
-		if (healthCheck.getPort() == null) {
+		if (healthCheckProperties.getPort() == null) {
 			port = publicAddress.getPort();
 		}
 		else {
-			port = healthCheck.getPort();
+			port = healthCheckProperties.getPort();
 		}
 
 		NewService.Check check = new NewService.Check();
-		String healthCheckCriticalTimeout = "2m";
-		if (StringUtils.hasText(healthCheckCriticalTimeout)) {
-			check.setDeregisterCriticalServiceAfter(healthCheckCriticalTimeout);
+		if (healthCheckProperties.isDeregisterEnabled()) {
+			check.setDeregisterCriticalServiceAfter(healthCheckProperties.getDeregisterTimeout());
 		}
 
 		Assert.isTrue(port > 0, "createCheck port must be greater than 0");
@@ -88,11 +86,9 @@ public class ConsulHazelcastHealthCheckAutoConfiguration {
 		check.setHttp(String.format("http://%s:%d/hazelcast/health", host, port));
 
 		Map<String, List<String>> headers = new HashMap<>();
-		final String healthCheckInterval = "10s";
-		final String healthCheckTimeout = "30s";
 		check.setHeader(headers);
-		check.setInterval(healthCheckInterval);
-		check.setTimeout(healthCheckTimeout);
+		check.setInterval(healthCheckProperties.getInterval());
+		check.setTimeout(healthCheckProperties.getTimeout());
 		check.setTlsSkipVerify(true);
 		return check;
 	}
